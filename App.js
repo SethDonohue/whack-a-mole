@@ -6,7 +6,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image source={require('./game-screen-top.png')}/>
+        <Image source={require('./assets/game-screen-top.png')}/>
         <Text>wHACK a mOLE aPP!</Text>
       </View>
     );
