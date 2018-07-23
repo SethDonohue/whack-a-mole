@@ -1,27 +1,42 @@
 import React from 'react';
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
-import Button from './components/button';
+import Header from './components/header';
 import { createStore } from 'redux';
 import { Provider, connect } from 'react-redux';
 import reducer from './lib/reducer.js';
+// import gameOver from '../../lib/action';
 
-const preLoadedState = {
-  score: 0,
-}
 
-const store = createStore(reducer, preLoadedState);
+const store = createStore(reducer, { score: 0, timer: 9 });
 
 export default class App extends React.Component {
+  // countDownTimer = () => {
+  //   let timeLeft = 120;
+
+  //   gameTimer = setInterval(function(){
+  //     timeLeft--;
+  //     this.setState({
+  //       seconds: 
+  //     })
+  //     if (timeLeft <= 0){
+  //       clearInterval(gameTimer);
+  //     }
+  //   },1000);
+  //   // setInterval()
+  //   // const countDownDate
+
+  //   // const stopTimer
+  //   setTimeout(update, 1000);
+
+  //   this.props.stopGame();
+  // }
+  
   render() {
     return (
       <Provider store={store}>
         <View style={styles.container}>
-          <ImageBackground
-            source={require('./assets/game-screen-top.png')}
-            style={{ width: '100%', height: '100%' }}/>
+          <Header/>
           <Text>wHACK a mOLE aPP!</Text>
-        
-          <Button/>
         </View>
       </Provider>
         );
@@ -33,6 +48,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
   },
 });
+
+const mapDispatchToProps = dispatch => ({
+  stopGame: () => dispatch(gameOver()),
+})
+
