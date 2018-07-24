@@ -37,9 +37,6 @@ class Button extends Component {
       `${minsToDisplay()} : ${secondsToDisplay()}`
     ): this.props.score;
 
-    console.log(this.props.isTimer);
-    console.log(this.props.timer);
-
     return (
       <ImageBackground
       source={require('../../assets/gameBtn.png')}
