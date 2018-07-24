@@ -10,10 +10,11 @@ class Game extends React.Component {
     // this.countDownTimer();
   }
   countDownTimer = () => {
-    setInterval(() => {
+    const gameTimer = setInterval(() => {
       console.log('Timer Change: ', this.props.timer);
       this.props.timerDecrement();
       if (this.props.timer <= 0) {
+        console.log('Timer STOPPED');
         clearInterval(gameTimer);
       }
     }, 1000);
@@ -27,7 +28,7 @@ class Game extends React.Component {
     return (
       <View style={styles.container}>
         <Header />
-        <Text>
+        <Text onPress={this.countDownTimer}>
           wHACK a mOLE Game!
           </Text>
       </View>
