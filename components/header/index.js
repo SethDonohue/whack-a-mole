@@ -10,12 +10,18 @@ class Header extends Component {
         source={require('../../assets/game-screen-top.png')}
         style={styles.header}>
         <Button
-        style={styles.buttonOne}
+          style={styles.buttonOne}
         />
         <Button
-        isTimer={true}
-        style={styles.buttonTwo}
+          isTimer={true}
+          style={styles.buttonTwo}
         />
+        { this.props.timer <= 0 ? (
+          <Button
+            isReset={true}
+            style={styles.buttonThree}
+          />
+        ): null}
       </ImageBackground>
     );
   }
@@ -23,9 +29,6 @@ class Header extends Component {
 
 const styles = StyleSheet.create({
   header: {
-    // flex: 1,
-    // imageStyle: 'stretch',
-    // position: 'relative',
     width: '100%',
     height: '30%',
     alignItems: 'center',
@@ -33,15 +36,24 @@ const styles = StyleSheet.create({
   },
   buttonOne: {
     position: 'absolute',
-    top: '14%',
+    top: '15%',
     left: '5%',
   },
   buttonTwo: {
     position: 'absolute',
-    top: '14%',
+    top: '15%',
+    right: '5%',
+  },
+  buttonThree: {
+    position: 'absolute',
+    top: '35%',
     right: '5%',
   },
 });
 
+const mapStateToProps = state => ({
+  // gameOver: state.gameOver,
+  timer: state.timer,
+});
 
-export default Header;
+export default connect(mapStateToProps)(Header);

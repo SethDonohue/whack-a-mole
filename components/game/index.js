@@ -6,25 +6,17 @@ import { Provider, connect } from 'react-redux';
 import { gameOver, timerDecrement } from '../../lib/action';
 
 class Game extends React.Component {
-  componentDidMount= () => {
-    // this.countDownTimer();
-  }
   countDownTimer = () => {
     const gameTimer = setInterval(() => {
-      console.log('Timer Change: ', this.props.timer);
       this.props.timerDecrement();
       if (this.props.timer <= 0) {
-        console.log('Timer STOPPED');
         clearInterval(gameTimer);
+        this.props.gameOver();
       }
     }, 1000);
-
-    // this.props.stopGame();
   }
 
   render() {
-    console.log('Render Triggered');
-
     return (
       <View style={styles.container}>
         <Header />
@@ -49,8 +41,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  stopGame: () => dispatch(gameOver()),
+  gameOver: () => dispatch(gameOver()),
   timerDecrement: () => dispatch(timerDecrement()),
+  gameReset: () => dispatch(gameReset()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

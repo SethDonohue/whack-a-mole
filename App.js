@@ -7,7 +7,7 @@ import reducer from './lib/reducer.js';
 import Game from './components/game';
 // import gameOver from '../../lib/action';
 
-const store = createStore(reducer, { score: 0, timer: 63 });
+const store = createStore(reducer, { score: 100, timer: 3 });
 
 export default class App extends React.Component {
   render() {

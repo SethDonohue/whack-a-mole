@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import { connect } from 'react-redux';
-import incrementScoreCount from '../../lib/action';
+import { gameReset } from '../../lib/action';
 
 class Button extends Component {
+  handleResetPress = () => {
+    this.props.gameReset();
+  }
+
   render() {
     const minsToDisplay = () => {
       const timerCount= this.props.timer;
@@ -20,7 +24,7 @@ class Button extends Component {
       const timerCount= this.props.timer;
       if (timerCount == 120 || timerCount == 60) {
         return '00';
-      } else if (timerCount > 69 && timerCount < 119) {
+      } else if (timerCount > 69 && timerCount < 120) {
         return this.props.timer - 60;
       } else if (timerCount < 70 && timerCount > 60) {
         return `0${this.props.timer - 60}`;
@@ -32,17 +36,21 @@ class Button extends Component {
         return '00';
       }
     };
-    
-    const timeOrScoreJSX = this.props.isTimer ? (
+
+    const timerJSX = this.props.isTimer ? (
       `${minsToDisplay()} : ${secondsToDisplay()}`
     ): this.props.score;
+
+    const resetJSX = this.props.isReset ? 'Reset Game' : null;
 
     return (
       <ImageBackground
       source={require('../../assets/gameBtn.png')}
       imageStyle={{resizeMode: 'contain'}}
       style={[this.props.style, styles.button]}>
-        <Text>{timeOrScoreJSX}</Text>
+        <Text
+          onPress={this.props.timer <= 0 ? this.handleResetPress : null}>
+          {this.props.isReset ? resetJSX : timerJSX }</Text>
       </ImageBackground>
     );
   }
@@ -64,7 +72,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  incrementScore: () => dispatch(incrementScoreCount()),
+  gameReset: () => dispatch(gameReset()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Button);
